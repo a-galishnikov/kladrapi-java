@@ -90,6 +90,7 @@ public class KladrObject {
         this.type = kladrJSONObject.optString("type");
         this.typeShort = kladrJSONObject.optString("typeShort");
         this.okato = kladrJSONObject.optString("okato");
+        this.contentType = kladrJSONObject.optString("contentType");
 
         List<KladrObject> parents = new ArrayList<KladrObject>();
         JSONArray parentArray = kladrJSONObject.optJSONArray("parents");
@@ -108,7 +109,7 @@ public class KladrObject {
         }
     }
 
-    private String id, name, zip, type, typeShort, okato;
+    private String id, name, zip, type, typeShort, okato, contentType;
     private List<KladrObject> parents;
 
     @Override
@@ -235,6 +236,14 @@ public class KladrObject {
         return okato;
     }
 
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
     public void setParents(List<KladrObject> parents) {
         this.parents = parents;
     }
@@ -258,6 +267,11 @@ public class KladrObject {
             builder.append(",\"okato\":\"").append(okato).append("\"");
         } else {
             builder.append(",\"okato\":null");
+        }
+        if (contentType != null) {
+            builder.append(",\"contentType\":\"").append(contentType).append("\"");
+        } else {
+            builder.append(",\"contentType\":null");
         }
         builder.append(",\"type\":\"").append(type).append("\"");
         builder.append("}");

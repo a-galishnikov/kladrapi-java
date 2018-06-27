@@ -166,6 +166,21 @@ public class KladrApiClient {
         return streetList;
     }
 
+    public KladrObject getBuildingWithParentsByZipCode(String zipCode) {
+        String params = new KladrApiUrlBuilder()
+                .setContentType(KladrApiUrlBuilder.CONTENT_TYPE_BUILDING)
+                .setLimit(1)
+                .setWithParent(true)
+                .setZip(zipCode)
+                .toString();
+
+        List<KladrObject> resultList = getKladrObjectList(params);
+
+        return resultList != null && resultList.size() > 0
+                ? resultList.get(0)
+                : null;
+    }
+
     /** Returns list of streets of specified city by city name.
      * If more than one city found assuming that the first is implied.
      * @param query - search query

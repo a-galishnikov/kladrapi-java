@@ -29,13 +29,14 @@ public class KladrApiUrlBuilder {
     public static final String CONTENT_TYPE_REGION = "region", CONTENT_TYPE_DISTRICT = "district", CONTENT_TYPE_CITY =
         "city", CONTENT_TYPE_STREET = "street", CONTENT_TYPE_BUILDING = "building";
 
-    private String contentType, query, regionId, districtId, cityId, buildingId; //, urlParams;
+    private String contentType, query, regionId, districtId, cityId, buildingId, zip; //, urlParams;
     private Integer limit;
     private Boolean withParent;
 
+
     public static String getBaseUrl(String token, String key) {
         if (token == null || key == null) {
-            throw new NullPointerException("token and key are required");
+            return  KLADR_API_BASE_URL;
         }
         return new StringBuilder(KLADR_API_BASE_URL).append("&token=").append(token).append("&key=").append(key).toString();
     }
@@ -82,6 +83,11 @@ public class KladrApiUrlBuilder {
 
     public KladrApiUrlBuilder setBuildingId(String buildingId) {
         this.buildingId = buildingId;
+        return this;
+    }
+
+    public KladrApiUrlBuilder setZip(String zipCode) {
+        this.zip = zipCode;
         return this;
     }
 
@@ -136,6 +142,9 @@ public class KladrApiUrlBuilder {
         }
         if (this.limit != null) {
             builder.append("&limit=").append(this.limit);
+        }
+        if (this.zip != null) {
+            builder.append("&zip=").append(this.zip);
         }
 
         if (query != null) {
